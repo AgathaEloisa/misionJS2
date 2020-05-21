@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <p id="text"></p>
+    
+    <script>
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+
+        // Arreglo de colores
+        let colors = ['red', 'green', 'yellow', 'brown', 'blue', 'purple', 'black', 'orange'];
+        // Color por defecto
+        let color = 'orange';
+
+        // Click en pantalla
+        document.addEventListener('click', () => {
+            //Colores aleatorios
+            color = colors[ Math.floor( Math.random() * colors.length ) ];
+            // Texto en pantalla
+            document.getElementById('text').innerHTML =  'el largo de la figura es = ' + figureWidth + ' y su alto es = ' + figureHight;
+        });
+
+       //variables de tamaño y posición de la figura
+       let positionX = 0;
+       let figureWidth = 0;
+       let figureHight = 400;
+
+        // Pinto la figura
+        setInterval( function () {
+            ctx.fillStyle = color;
+            ctx.clearRect(0, 0, 400, 400);
+            ctx.beginPath();
+            ctx.fillRect(positionX, 0, figureWidth, figureHight);
+            ctx.closePath();
+
+
+            positionX++
+            figureWidth++
+            figureHight--
+
+            if(positionX > 400) {
+                positionX = 0;
+                figureWidth = 0;
+                figureHight = 400;
+                color = colors[ Math.floor( Math.random() * colors.length ) ];
+            }
+
+        }, 30)
+    </script>
+</body>
+</html>
